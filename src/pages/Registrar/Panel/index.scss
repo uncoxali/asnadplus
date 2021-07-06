@@ -1,0 +1,65 @@
+.RegistrarPanel {
+  min-height: 100vh;
+  > .sidebar {
+    z-index: 10;
+    overflow: hidden;
+    transition: width 0.5s;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    > .close-sidebar {
+      display: none;
+    }
+  }
+
+  > .sidebar.show {
+    width: 250px;
+  }
+  > .sidebar.hide {
+    width: 0;
+  }
+  > .wrapper {
+    transition: 0.5s;
+    flex: 1;
+    > main {
+      > div {
+        > header:not(.header) {
+          margin-left: 0;
+          margin-right: 0;
+          margin-bottom: 1.5rem;
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      }
+    }
+  }
+  > .wrapper.sidebar-show {
+    margin-right: 250px;
+  }
+  > .wrapper.sidebar-hide {
+    margin-right: 0;
+  }
+}
+@media (max-width: 992px) {
+  .RegistrarPanel {
+    .sidebar {
+      > button.close-sidebar {
+        display: block;
+        height: 100%;
+        flex: 1;
+        border: none;
+        background-color: transparent;
+      }
+    }
+    > .sidebar.show {
+      width: 100%;
+    }
+    > .wrapper.sidebar-show {
+      margin-right: 0;
+    }
+    > .wrapper.sidebar-hide {
+      margin-right: 0;
+    }
+  }
+}

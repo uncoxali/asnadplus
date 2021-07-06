@@ -1,0 +1,17 @@
+.SignIn {
+  .position-relative * {
+    z-index: 1;
+  }
+  .bg-image {
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    object-fit: cover;
+    opacity: 0.6;
+  }
+}

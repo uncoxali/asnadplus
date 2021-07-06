@@ -1,0 +1,34 @@
+.ImageHover{
+    width: 400px;
+    height: 400px;
+    background-color: yellow;
+    position: relative;
+    img{
+        object-fit: contain;
+        background-color: white;
+    }
+    .mouse-place{
+        position: absolute;
+        width: 75px;
+        height: 75px;
+        background-color: rgba(0, 255, 0, 0.5);
+        .image-box{
+            position: absolute;
+            outline: 1px solid yellowgreen;
+            width: 200px;
+            height: 200px;
+            left: -225px;
+            bottom: -225px;
+            overflow: hidden;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                transform: scale(4,4);
+                position: absolute;
+                transform-origin: top left;
+                background-color: white;
+            }
+        }
+    }
+}

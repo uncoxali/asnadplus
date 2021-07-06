@@ -1,0 +1,11 @@
+.Sidebar {
+  width: 250px;
+  min-width: 250px;
+  height: 100vh;
+  overflow: auto;
+}
+@media (max-width: 992px) {
+  .Sidebar {
+    width: 300px;
+  }
+}

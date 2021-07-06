@@ -1,0 +1,36 @@
+.Slider {
+  width: 100%;
+  height: 450px;
+  .active-image {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: 0.25s;
+      //   &:hover{
+      //   transform: scale(2);
+      //   }
+    }
+  }
+  .all-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    .btn {
+      width: 75px;
+      height: 75px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}

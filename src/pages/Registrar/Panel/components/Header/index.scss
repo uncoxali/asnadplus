@@ -1,0 +1,13 @@
+.RegistrarPanel {
+  > .wrapper {
+    .Header {
+      .link {
+          cursor: pointer;
+          transition: 0.25s;
+          &:hover{
+              color: var(--bs-secondary);
+          }
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+@import "./custom.scss";
+@import "./font.scss";
+@import "~bootstrap/scss/bootstrap";
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
+
+html,
+body,
+input,
+textarea,
+button {
+  font-family: iransans;
+  background-color: $light;
+  // color: #3c4b64;
+  color: $dark;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.all-none {
+  border: none;
+  background-color: transparent;
+}
+.all-none:focus {
+  outline: none;
+}
+.App.loading {
+  filter: blur(2.5px);
+}
+.btn-group {
+  width: fit-content;
+}
+.btn[type="submit"],
+.btn-group.submit {
+  @extend .d-block;
+  @extend .mx-auto;
+  @extend .px-4;
+  @extend .my-3;
+  width: fit-content;
+}
+.lang-en-us {
+  direction: ltr;
+  font-family: sans-serif;
+}
+.flex-center {
+  @extend .justify-content-center;
+  @extend .align-items-center;
+}
