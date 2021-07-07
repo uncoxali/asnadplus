@@ -152,6 +152,32 @@ export default function RegistrationOfPurchaseAndSettlement() {
     });
   }, []);
 
+  const renderCustomInput = ({ ref }) => (
+    <div>
+      <div className="input-group mb-2">
+        <div className="input-group-prepend">
+          <span className="input-group-text" id="inputGroup-sizing-default">
+            تاریخ فاکتور
+          </span>
+        </div>
+        <input
+          readOnly
+          ref={ref} // necessary
+          placeholder="I'm a custom input"
+          value={
+            selectedDayRange
+              ? `${selectedDayRange.day} / ${selectedDayRange.month} / ${selectedDayRange.year}`
+              : ""
+          }
+          type="text"
+          className="form-control bg-white text-center"
+          aria-label="Default"
+          aria-describedby="inputGroup-sizing-default"
+        />
+      </div>
+    </div>
+  );
+
   return (
     <div className="RegistrationOfPurchaseAndSettlement">
       <header className="header mx-0 mb-4 flex-column">
@@ -204,9 +230,8 @@ export default function RegistrationOfPurchaseAndSettlement() {
               shouldHighlightWeekends
               minimumDate={minimumDate}
               maximumDate={maximumDate}
-              inputClassName="w-100 p-2 rounded "
+              renderInput={renderCustomInput}
             />
-
             {formControls.map((item, index) => (
               <Col key={index} xs="12" className="my-2">
                 {React.createElement(item.tag, {

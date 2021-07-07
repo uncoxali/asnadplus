@@ -4,6 +4,7 @@ import { HashRouter } from "react-router-dom";
 import Loading from "./components/Loading";
 import Notifications from "./components/Notifications";
 import MainLayout from "./layouts/MainLayout";
+
 function App({ loading }) {
   return (
     <React.Fragment>

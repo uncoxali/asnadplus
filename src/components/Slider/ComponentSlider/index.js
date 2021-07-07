@@ -41,7 +41,7 @@ export default (props) => {
                   <Zoom
                     img={item.img}
                     zoomScale={1.5}
-                    width={600}
+                    width={900}
                     height={400}
                     transitionTime={0.5}
                   />
