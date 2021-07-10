@@ -28,12 +28,14 @@ export default function RegistrationOfPurchaseAndSettlement() {
     month: 12,
     day: 30,
   };
-  const [selectedDayRange, setSelectedDayRange] = useState({
+
+  const defaultValue = {
     year: 1400,
     month: 4,
-    day: 9,
-  });
+    day: 15,
+  };
 
+  const [selectedDayRange, setSelectedDayRange] = useState();
   const [merchandises, setMerchandises] = useState([]);
   const userId = useSelector((state) => state.city_class_member.member.id);
   const [persons, setPersons] = useState([]);
@@ -55,7 +57,9 @@ export default function RegistrationOfPurchaseAndSettlement() {
     //   tag: InputGroupDate,
     //   label: "تاریخ فاکتور",
     //   value: "factor_date",
-    //   props: {},
+    //   props: {
+
+    //   },
     // },
     {
       tag: InputGroup,
@@ -144,6 +148,7 @@ export default function RegistrationOfPurchaseAndSettlement() {
     const url = `customers/${userId}/merchandise`;
     await axios.get(url).then(({ data }) => {
       setMerchandises(data.data);
+      console.log(data);
     });
   };
   useEffect(() => {
@@ -161,9 +166,10 @@ export default function RegistrationOfPurchaseAndSettlement() {
           </span>
         </div>
         <input
+          onChange={(e) => console.log(e)}
           readOnly
           ref={ref} // necessary
-          placeholder="I'm a custom input"
+          placeholder=" روز /  ماه  / سال "
           value={
             selectedDayRange
               ? `${selectedDayRange.day} / ${selectedDayRange.month} / ${selectedDayRange.year}`
@@ -177,6 +183,11 @@ export default function RegistrationOfPurchaseAndSettlement() {
       </div>
     </div>
   );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    body.factor_date = selectedDayRange;
+  };
 
   return (
     <div className="RegistrationOfPurchaseAndSettlement">
@@ -222,7 +233,7 @@ export default function RegistrationOfPurchaseAndSettlement() {
           <Slider />
         </Col>
         <Col xs="12" md="7">
-          <Form className="row mx-auto">
+          <Form className="row mx-auto" onSubmit={(e) => handleSubmit(e)}>
             <DatePicker
               locale="fa"
               value={selectedDayRange}
@@ -246,6 +257,13 @@ export default function RegistrationOfPurchaseAndSettlement() {
                 })}
               </Col>
             ))}
+            <Button
+              type="submit"
+              variant="success"
+              className="my-3 w-25 mx-auto d-block"
+            >
+              ثبت و سند
+            </Button>
           </Form>
           <div>
             <Fieldset title="نحوه تسویه" />

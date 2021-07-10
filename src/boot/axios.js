@@ -27,6 +27,7 @@ axios.interceptors.response.use(
     store.dispatch({ type: "SET_LOADING", data: false });
     return response;
   },
+
   function (error) {
     store.dispatch({ type: "SET_LOADING", data: false });
     if (error.response && error.response.status) {

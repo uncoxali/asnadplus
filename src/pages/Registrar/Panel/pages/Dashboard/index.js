@@ -7,6 +7,10 @@ import attachmentTypes from "../../../../../global/attachmentTypes";
 import axios from "../../../../../boot/axios";
 import "./index.scss";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import axios from "axios";
+
 export default function Dashboard() {
   const userId = useSelector((state) => state.city_class_member.member.id);
   const [data, setData] = useState({
@@ -14,6 +18,7 @@ export default function Dashboard() {
     customer_id: userId,
     "attachments[]": "",
   });
+
   const formControls = [
     {
       tag: InputGroupDropdown,
@@ -30,25 +35,76 @@ export default function Dashboard() {
       props: {},
     },
   ];
-  const submit = () => {
+
+  const success = (msg) => {
+    toast.success(msg, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  const error = (msg) => {
+    toast.error(msg, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
     const conditions = data.type.length > 0 && data["attachments[]"] !== "";
     if (conditions) {
       const url = "client/pooldoc";
       const body = new FormData();
       Object.keys(data).forEach((item) => {
+        if (item === "attachments[]") {
+          const type = data[item]["type"] === "image/png" ? "picture" : "voice";
+          return body.append(`attachments[${type}]`, data[item]);
+        }
         body.append(item, data[item]);
       });
-      axios.post(url, body).then(({ data }) => {
-        console.log(data);
-      });
+      axios
+        .post(url, body)
+        .then((res) => {
+          if (res.status === 200) {
+            success("اسناد شما با موفقیت ارسال گردیده است");
+          } else {
+            error(res.status);
+          }
+        })
+        .then((err) => console.log(err));
     }
   };
+
   return (
     <div className="Dashboard">
       <header>
         <label>ارسال سند به صورت آزمایشی</label>
       </header>
+
       <main>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        {/* Same as */}
+        <ToastContainer />
         <Row>
           {formControls.map((item, index) => (
             <Col xs="12" md="6" className="my-1" key={index}>
@@ -64,7 +120,7 @@ export default function Dashboard() {
               })}
             </Col>
           ))}
-          <Button onClick={submit} type="submit" variant="success">
+          <Button onClick={(e) => submit(e)} type="submit" variant="success">
             ثبت
           </Button>
         </Row>
@@ -72,3 +128,35 @@ export default function Dashboard() {
     </div>
   );
 }
+
+// import React from "react";
+// import { useForm } from "react-hook-form";
+// import axios from "axios";
+
+// export default function App() {
+//   const [file, setFile] = React.useState(null);
+//   const { register, handleSubmit } = useForm();
+//   // "https://galvanic-tea-272814-default-rtdb.firebaseio.com/file.json",
+
+//   const onSubmit = async (data) => {
+//     const formData = new FormData();
+//     formData.append("inputFile", data);
+//     const res = await axios("https://hamda.ir/api/client/pooldoc", {
+//       method: "POST",
+//       body: formData,
+//     }).then((res) => res.json());
+//     alert(JSON.stringify(res));
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit(onSubmit)}>
+//       <input name="inputFile" type="file" {...register("file")} />
+//       <select {...register("gender")}>
+//         <option value="female">female</option>
+//         <option value="male">male</option>
+//         <option value="other">other</option>
+//       </select>
+//       <input type="submit" />
+//     </form>
+//   );
+// }
