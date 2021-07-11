@@ -6,6 +6,7 @@ export default function InputGroupFile({
   label = "",
   value = "",
   setValue = () => {},
+  ...otherProps
 }) {
   let input = null;
   const [file, setFile] = useState(value);
@@ -27,6 +28,7 @@ export default function InputGroupFile({
           setValue(file);
         }}
         style={{ display: "none" }}
+        {...otherProps}
       />
       <BInputGroup.Append>
         <BInputGroup.Text>{label}</BInputGroup.Text>

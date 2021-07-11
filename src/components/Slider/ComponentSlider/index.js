@@ -4,21 +4,11 @@ import "keen-slider/keen-slider.min.css";
 import "./style.css";
 import Zoom from "react-img-zoom";
 
-const image = [
-  {
-    img: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
-  },
-  {
-    img: "https://cdn.pixabay.com/photo/2021/05/29/07/06/shiba-6292660__340.jpg",
-  },
-  {
-    img: "https://cdn.pixabay.com/photo/2021/06/06/09/04/bridge-6314795__340.jpg",
-  },
-];
-
-export default (props) => {
+export default ({ props, data }) => {
   const [currentSlide, setCurrentSlide] = React.useState(0);
-  const [zoom, setZoom] = React.useState();
+  const [gallery, setGallery] = React.useState(true);
+
+  const images = data?.data.attachments;
 
   const [sliderRef, slider] = useKeenSlider({
     initial: 0,
@@ -27,13 +17,40 @@ export default (props) => {
     },
   });
 
+  const image = [
+    {
+      img: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
+    },
+    {
+      img: "https://cdn.pixabay.com/photo/2021/05/29/07/06/shiba-6292660__340.jpg",
+    },
+    {
+      img: "https://cdn.pixabay.com/photo/2021/06/06/09/04/bridge-6314795__340.jpg",
+    },
+  ];
+
   return (
     <>
       <div className="container">
         <div className="">
           <div className="navigation-wrapper w-100" dir="ltr">
             <div ref={sliderRef} className="keen-slider">
-              {image.map((item) => (
+              {images?.map((item) => (
+                <div
+                  key={item}
+                  className={`keen-slider__slide number-slide zoom-image`}
+                >
+                  <Zoom
+                    img={item.url}
+                    zoomScale={1.5}
+                    width={900}
+                    height={400}
+                    transitionTime={0.5}
+                  />
+                </div>
+              ))}
+
+              {/* {image.map((item) => (
                 <div
                   key={item.img}
                   className={`keen-slider__slide number-slide zoom-image`}
@@ -46,7 +63,7 @@ export default (props) => {
                     transitionTime={0.5}
                   />
                 </div>
-              ))}
+              ))} */}
             </div>
             {slider && (
               <>
@@ -64,12 +81,31 @@ export default (props) => {
           {slider && (
             <div className="dots mt-2 " dir="ltr">
               <div className="flex">
-                {
+                {/* {
                   ([...Array(slider.details().size).keys()],
-                  image.map((item, idx) => (
+                  image?.map((item, idx) => (
                     <img
                       key={idx}
                       src={item.img}
+                      width="80px"
+                      height="60px"
+                      onClick={() => {
+                        slider.moveToSlideRelative(idx);
+                      }}
+                      className={
+                        currentSlide === idx
+                          ? " border border-info h-100 border-5 p-0"
+                          : ""
+                      }
+                    />
+                  )))
+                } */}
+                {
+                  ([...Array(slider.details().size).keys()],
+                  images?.map((item, idx) => (
+                    <img
+                      key={idx}
+                      src={item.url}
                       width="80px"
                       height="60px"
                       onClick={() => {

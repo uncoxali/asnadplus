@@ -16,7 +16,7 @@ export default function Dashboard() {
   const [data, setData] = useState({
     type: "",
     customer_id: userId,
-    "attachments[]": "",
+    "attachments[picture]": "",
   });
 
   const formControls = [
@@ -31,8 +31,19 @@ export default function Dashboard() {
     {
       tag: InputGroupFile,
       label: "فایل",
-      value: "attachments[]",
-      props: {},
+      value: "attachments[picture]",
+      props: {
+        multiple: true,
+        onChange: (e) => {
+          let fileList = [];
+          for (let i = 0; i < e.target.files.length; i++) {
+            fileList.push(e.target.files[i]);
+          }
+          const newData = { ...data };
+          newData["attachments[picture]"] = fileList;
+          setData(newData);
+        },
+      },
     },
   ];
 
@@ -66,9 +77,10 @@ export default function Dashboard() {
       const url = "client/pooldoc";
       const body = new FormData();
       Object.keys(data).forEach((item) => {
-        if (item === "attachments[]") {
-          const type = data[item]["type"] === "image/png" ? "picture" : "voice";
-          return body.append(`attachments[${type}]`, data[item]);
+        if (item === "attachments[picture]") {
+          data[item].map((i) => {
+            return body.append(`attachments[picture][]`, i);
+          });
         }
         body.append(item, data[item]);
       });

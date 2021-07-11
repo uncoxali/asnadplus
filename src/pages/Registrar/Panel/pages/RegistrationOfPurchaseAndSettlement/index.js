@@ -38,6 +38,11 @@ export default function RegistrationOfPurchaseAndSettlement() {
   const [selectedDayRange, setSelectedDayRange] = useState();
   const [merchandises, setMerchandises] = useState([]);
   const userId = useSelector((state) => state.city_class_member.member.id);
+  const [type, setType] = useState({
+    type: "type=buy_register",
+  });
+  const [data, setData] = useState();
+  console.log(userId);
   const [persons, setPersons] = useState([]);
   const [body, setBody] = useState({
     factor_date: "", // تاریخ فاکتور
@@ -148,14 +153,21 @@ export default function RegistrationOfPurchaseAndSettlement() {
     const url = `customers/${userId}/merchandise`;
     await axios.get(url).then(({ data }) => {
       setMerchandises(data.data);
-      console.log(data);
     });
   };
   useEffect(() => {
     getAllPersons().then(() => {
       getAllMerchandise();
     });
+    gallery();
   }, []);
+
+  const gallery = async () => {
+    const url = `customers/${userId}/appointment/register?${type.type}`;
+    await axios.get(url).then(({ data }) => {
+      setData(data);
+    });
+  };
 
   const renderCustomInput = ({ ref }) => (
     <div>
@@ -166,7 +178,6 @@ export default function RegistrationOfPurchaseAndSettlement() {
           </span>
         </div>
         <input
-          onChange={(e) => console.log(e)}
           readOnly
           ref={ref} // necessary
           placeholder=" روز /  ماه  / سال "
@@ -187,6 +198,7 @@ export default function RegistrationOfPurchaseAndSettlement() {
   const handleSubmit = (e) => {
     e.preventDefault();
     body.factor_date = selectedDayRange;
+    console.log(body);
   };
 
   return (
@@ -230,7 +242,7 @@ export default function RegistrationOfPurchaseAndSettlement() {
       </header>
       <main className="row" className="  d-md-flex flex-sm-row-reverse ">
         <Col xs="12" md="5">
-          <Slider />
+          <Slider data={data} />
         </Col>
         <Col xs="12" md="7">
           <Form className="row mx-auto" onSubmit={(e) => handleSubmit(e)}>
