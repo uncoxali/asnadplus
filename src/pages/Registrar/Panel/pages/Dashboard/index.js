@@ -12,7 +12,9 @@ import "react-toastify/dist/ReactToastify.css";
 // import axios from "axios";
 
 export default function Dashboard() {
-  const userId = useSelector((state) => state.city_class_member.member.id);
+  const userId = useSelector(
+    (state) => state.city_class_member.member.customer_id
+  );
   const [data, setData] = useState({
     type: "",
     customer_id: userId,

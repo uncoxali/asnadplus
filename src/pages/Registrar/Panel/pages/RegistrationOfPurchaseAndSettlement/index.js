@@ -42,7 +42,6 @@ export default function RegistrationOfPurchaseAndSettlement() {
     type: "type=buy_register",
   });
   const [data, setData] = useState();
-  console.log(userId);
   const [persons, setPersons] = useState([]);
   const [body, setBody] = useState({
     factor_date: "", // تاریخ فاکتور
@@ -198,7 +197,6 @@ export default function RegistrationOfPurchaseAndSettlement() {
   const handleSubmit = (e) => {
     e.preventDefault();
     body.factor_date = selectedDayRange;
-    console.log(body);
   };
 
   return (
@@ -241,41 +239,36 @@ export default function RegistrationOfPurchaseAndSettlement() {
         </Row>
       </header>
       <main className="row" className="  d-md-flex flex-sm-row-reverse ">
-        <Col xs="12" md="5">
+        <Col xs="12" md="6">
           <Slider data={data} />
         </Col>
-        <Col xs="12" md="7">
+        <Col xs="12" md="6">
           <Form className="row mx-auto" onSubmit={(e) => handleSubmit(e)}>
-            <DatePicker
-              locale="fa"
-              value={selectedDayRange}
-              onChange={setSelectedDayRange}
-              shouldHighlightWeekends
-              minimumDate={minimumDate}
-              maximumDate={maximumDate}
-              renderInput={renderCustomInput}
-            />
-            {formControls.map((item, index) => (
-              <Col key={index} xs="12" className="my-2">
-                {React.createElement(item.tag, {
-                  label: item.label,
-                  value: body[item.value],
-                  setValue: (value) => {
-                    const newBody = { ...body };
-                    newBody[item.value] = value;
-                    setBody(newBody);
-                  },
-                  ...item.props,
-                })}
-              </Col>
-            ))}
-            <Button
-              type="submit"
-              variant="success"
-              className="my-3 w-25 mx-auto d-block"
-            >
-              ثبت و سند
-            </Button>
+            <Col xs="8">
+              <DatePicker
+                locale="fa"
+                value={selectedDayRange}
+                onChange={setSelectedDayRange}
+                shouldHighlightWeekends
+                minimumDate={minimumDate}
+                maximumDate={maximumDate}
+                renderInput={renderCustomInput}
+              />
+              {formControls.map((item, index) => (
+                <div key={index} className="my-2">
+                  {React.createElement(item.tag, {
+                    label: item.label,
+                    value: body[item.value],
+                    setValue: (value) => {
+                      const newBody = { ...body };
+                      newBody[item.value] = value;
+                      setBody(newBody);
+                    },
+                    ...item.props,
+                  })}
+                </div>
+              ))}
+            </Col>
           </Form>
           <div>
             <Fieldset title="نحوه تسویه" />

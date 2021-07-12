@@ -4,6 +4,9 @@ import "keen-slider/keen-slider.min.css";
 import "./style.css";
 import Zoom from "react-img-zoom";
 
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.min.css";
+import InnerImageZoom from "react-inner-image-zoom";
+
 export default ({ props, data }) => {
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [gallery, setGallery] = React.useState(true);
@@ -40,13 +43,18 @@ export default ({ props, data }) => {
                   key={item}
                   className={`keen-slider__slide number-slide zoom-image`}
                 >
-                  <Zoom
+                  <InnerImageZoom
+                    className=" h-auto"
+                    src={item.url}
+                    moveType="drag"
+                  />
+                  {/* <Zoom
                     img={item.url}
                     zoomScale={1.5}
-                    width={900}
+                    width={1200}
                     height={400}
                     transitionTime={0.5}
-                  />
+                  /> */}
                 </div>
               ))}
 

@@ -136,19 +136,19 @@ export default function InputGroupSelectProduct({
             انتخاب
           </Button>
         </BInputGroup.Prepend>
-        <div className="form-control row text-end">
+        <div className="form-control row text-end ">
           {showActiveItem ? (
-            <React.Fragment>
+            <div className=" overflow-auto" style={{ height: "50px" }}>
               {value.map((item, index) => (
-                <span
+                <div
                   key={index}
-                  style={{ width: "fit-content" }}
-                  className="d-inline-flex rounded bg-secondary text-white text-end px-1 py-2 h6 mx-1 my-0"
+                  style={{ width: "fit-content", marginTop: "10px" }}
+                  className="h-5 w-100 p-1 bg-info rounded text-center text-white"
                 >
-                  {item[itemLabel]}
-                </span>
+                  <div>{item[itemLabel]}</div>
+                </div>
               ))}
-            </React.Fragment>
+            </div>
           ) : null}
         </div>
         <BInputGroup.Append>

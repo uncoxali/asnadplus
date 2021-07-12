@@ -87,26 +87,31 @@ export default function Sidebar() {
       { fa: "جمعه", en: "Friday" },
       { fa: "شنبه", en: "Saturday" },
     ];
-    const day = new Date().getDay()
-    return days[day]
+    const day = new Date().getDay();
+    return days[day];
   };
+
   return (
-    <div className="Sidebar bg-dark text-white h-100">
-      <div className="Sidebar-header d-flex flex-column justify-content-center align-item-center text-white text-center py-3 bg-success">
-        <p className="my-1">{`${DaysAWeek().fa} ${dateShamsi()}`}</p>
-        <p className="my-1 lang-en-us" dir='ltr'>{`${dateMiladi()} ${DaysAWeek().en}`}</p>
+    <div>
+      <div className="Sidebar bg-dark text-white h-100">
+        <div className="Sidebar-header d-flex flex-column justify-content-center align-item-center text-white text-center py-3 bg-success">
+          <p className="my-1">{`${DaysAWeek().fa} ${dateShamsi()}`}</p>
+          <p className="my-1 lang-en-us" dir="ltr">{`${dateMiladi()} ${
+            DaysAWeek().en
+          }`}</p>
+        </div>
+        <Accordion>
+          {items()}
+          <Button
+            variant="outline-primary"
+            className="text-white text-end w-100 border-0 btn-md Sidebar-item pe-2"
+            onClick={logout}
+          >
+            <ArrowBarRight className="ms-2" />
+            خروج از حساب
+          </Button>
+        </Accordion>
       </div>
-      <Accordion>
-        {items()}
-        <Button
-          variant="outline-primary"
-          className="text-white text-end w-100 border-0 btn-md Sidebar-item pe-2"
-          onClick={logout}
-        >
-          <ArrowBarRight className="ms-2" />
-          خروج از حساب
-        </Button>
-      </Accordion>
     </div>
   );
 }
