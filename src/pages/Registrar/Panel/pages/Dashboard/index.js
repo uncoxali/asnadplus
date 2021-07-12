@@ -31,7 +31,7 @@ export default function Dashboard() {
     {
       tag: InputGroupFile,
       label: "فایل",
-      value: "attachments[picture]",
+      value: `name`,
       props: {
         multiple: true,
         onChange: (e) => {
@@ -132,6 +132,7 @@ export default function Dashboard() {
               })}
             </Col>
           ))}
+
           <Button onClick={(e) => submit(e)} type="submit" variant="success">
             ثبت
           </Button>

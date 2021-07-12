@@ -1,0 +1,14 @@
+.input::before {
+  content: "انتخاب";
+  color: white;
+  position: absolute;
+  z-index: 2;
+  display: block;
+  background-color: rgb(14, 14, 218);
+  width: 117px;
+  padding: 6px;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+  text-align: center;
+}

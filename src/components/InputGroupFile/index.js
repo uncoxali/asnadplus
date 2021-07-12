@@ -2,6 +2,8 @@ import BInputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import "./style.css";
+
 export default function InputGroupFile({
   label = "",
   value = "",
@@ -10,24 +12,23 @@ export default function InputGroupFile({
 }) {
   let input = null;
   const [file, setFile] = useState(value);
-  const fileName = file === "" ? "" : file.name;
+
   return (
     <BInputGroup dir="ltr">
-      <BInputGroup.Prepend>
-        <Button variant="primary" onClick={() => input.click()}>
-          انتخاب فایل
-        </Button>
-      </BInputGroup.Prepend>
-      <FormControl readOnly defaultValue={fileName} />
+      {/* <FormControl readOnly defaultValue={fileName} />
+      <Button variant="primary" onClick={() => input.click()}>
+        انتخاب فایل
+      </Button> */}
       <input
+        className="form-control input"
         ref={(element) => (input = element)}
         type="file"
+        placeholder="test"
         onChange={({ target }) => {
           const file = target.files[0];
           setFile(file);
           setValue(file);
         }}
-        style={{ display: "none" }}
         {...otherProps}
       />
       <BInputGroup.Append>
